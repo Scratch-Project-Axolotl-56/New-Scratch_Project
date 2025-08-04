@@ -1,0 +1,24 @@
+{
+  "name": "new-scratch_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd client && npm run dev",
+    "server": "cd server && nodemon --exec node --loader ts-node/esm src/server.ts",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Scratch-Project-Axolotl-56/New-Scratch_Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Scratch-Project-Axolotl-56/New-Scratch_Project/issues"
+  },
+  "homepage": "https://github.com/Scratch-Project-Axolotl-56/New-Scratch_Project#readme"
+}
