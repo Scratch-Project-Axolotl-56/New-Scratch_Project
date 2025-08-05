@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const [isGameOver, setIsGameOver] = useState(false);
 
   const wordLength = level + 3;
-
+  // test
   useEffect(() => {
     const wordList = wordsByLength[wordLength];
     const randomWord = wordList[Math.floor(Math.random() * wordList.length)];
