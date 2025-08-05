@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && npm run dev",
-    "server": "cd server && nodemon --exec node --loader ts-node/esm server.ts",
+    "server": "cd server && nodemon --exec node --loader ts-node/esm src/server.ts",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
@@ -20,14 +20,5 @@
   "bugs": {
     "url": "https://github.com/Scratch-Project-Axolotl-56/New-Scratch_Project/issues"
   },
-  "homepage": "https://github.com/Scratch-Project-Axolotl-56/New-Scratch_Project#readme",
-  "dependencies": {
-    "concurrently": "^9.2.0",
-    "express": "^5.1.0",
-    "i": "^0.3.7",
-    "nodemon": "^3.1.10",
-    "npm": "^11.5.2",
-    "pg": "^8.16.3",
-    "ts-node": "^10.9.2"
-  }
+  "homepage": "https://github.com/Scratch-Project-Axolotl-56/New-Scratch_Project#readme"
 }
