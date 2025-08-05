@@ -1,8 +1,12 @@
-const express = require('express');
+import path from 'path';
+import express from 'express';
+import wordRouter from './routes/words';
+
 const app = express();
-const path = require('path');
+app.use(express.json());
 
 app.use(express.static(path.join(__dirname, 'build')));
+app.use('/api/words', wordRouter);
 
 app.listen(3000, () => {
   console.log('👌👌👌👌 Server running on port 3000');

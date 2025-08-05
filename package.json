@@ -16,13 +16,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/Scratch-Project-Axolotl-56/New-Scratch_Project/issues"
   },
   "homepage": "https://github.com/Scratch-Project-Axolotl-56/New-Scratch_Project#readme",
   "dependencies": {
     "concurrently": "^9.2.0",
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "i": "^0.3.7",
     "nodemon": "^3.1.10",
