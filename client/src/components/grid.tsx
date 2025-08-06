@@ -7,6 +7,8 @@ type GridProps = {
   targetWord: string;
 };
 
+const totalRows = 6;
+
 const getLetterStatus = (letter: string, index: number, targetWord: string) => {
   if (targetWord[index] === letter.toLowerCase()) return 'correct';
   if (targetWord.includes(letter.toLowerCase())) return 'present';
@@ -65,22 +67,15 @@ const Grid: React.FC<GridProps> = ({
     );
   }
 
-  // Fill remaining empty rows
-  const remainingRows =
-    wordLength + 3 + safeGuess.length < 5 + wordLength
-      ? 5 + wordLength - safeGuess.length - 1
-      : 0;
-
-  for (let i = 0; i < remainingRows; i++) {
+  while (rows.length < totalRows) {
     rows.push(
-      <div key={`empty-${i}`} className='row'>
+      <div key={`empty-${rows.length}`} className="row">
         {Array.from({ length: wordLength }).map((_, j) => (
-          <div key={j} className='tile'></div>
+          <div key={j} className="tile"></div>
         ))}
       </div>
     );
-  }
-
+}
   return <div>{rows}</div>;
 };
 
