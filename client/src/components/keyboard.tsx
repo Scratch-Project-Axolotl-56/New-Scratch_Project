@@ -4,10 +4,7 @@ type keyboardProps = {
   onKeyDown: (key: string) => void;
   letters: string[][];
 };
-// new change
 
-//onKeyPress is now deprecated because
-// it does not work for all keys (like CTRL, SHIFT, and ALT)
 const Keyboard: React.FC<keyboardProps> = ({ onKeyDown, letters }) => {
   const handleClick = (key: string) => {
     onKeyDown(key);
