@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import { Pool } from 'pg';
 dotenv.config();
 
-const PG_URI = process.env.WORD_URI;
+const PG_URI = process.env.LOCAL_PG_URI;
 const pool = new Pool({ connectionString: PG_URI });
 
 export default {

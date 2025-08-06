@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import wordsByLength from '../../words.json';
 import Grid from './grid';
 import Keyboard from './keyboard';
+import { supabase } from '../../supabaseClient';
 
 const MAX_LEVEL = 11; // 3 to 13 letters (index 0 = 3-letter)
 const MAX_ATTEMPTS = 6;
@@ -21,6 +22,37 @@ const App: React.FC = () => {
 
   const wordLength = level + 3;
 
+
+  useEffect(() => {
+    const fetchWord = async () => {
+      const { data, error } = await supabase
+        .from('first_level')
+        .select('words')
+        .eq('length', wordLength);
+
+      console.log('✅ Data:', data);
+      console.log('❌ Error:', error);
+
+      if (error) {
+        console.error('❌ Supabase fetch error:', error);
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        console.error('⚠️ Supabase returned empty data');
+        return;
+      }
+
+      const randomWord = data[Math.floor(Math.random() * data.length)].words;
+      setTargetWord(randomWord.toLowerCase());
+    };
+
+    fetchWord();
+    setGuesses([]);
+    setCurrentGuess('');
+    setIsGameOver(false);
+  }, [level, wordLength]);
+
   console.log('currentGuess', currentGuess);
 
   const handleAlphabetical = (key: string) => {
@@ -28,6 +60,7 @@ const App: React.FC = () => {
       const currentWordArray = currentGuess.split('');
       currentWordArray.push(key);
       const newWord = currentWordArray.join('');
+
 
       return newWord;
     });
