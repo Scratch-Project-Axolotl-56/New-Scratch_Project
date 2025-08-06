@@ -29,7 +29,7 @@ const Grid: React.FC<GridProps> = ({
       <div key={`row-${rowIndex}`} className='flex gap-1 justify-center mb-1'>
         {letters.map((letter, i) => {
           const status = getLetterStatus(letter, i, targetWord);
-          let bgColor =
+          const bgColor =
             status === 'correct'
               ? 'bg-green-500'
               : status === 'present'
