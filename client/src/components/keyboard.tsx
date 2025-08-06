@@ -1,26 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 type keyboardProps = {
-  onKeyPress: (key: string) => void;
+  onKeyDown: (key: string) => void;
+  letters: string[][];
 };
 // new change
-const KEYS = [
-  ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-  ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
-  ['Enter', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Backspace'],
-];
 
-const Keyboard: React.FC<keyboardProps> = ({ onKeyPress }) => {
+//onKeyPress is now deprecated because
+// it does not work for all keys (like CTRL, SHIFT, and ALT)
+const Keyboard: React.FC<keyboardProps> = ({ onKeyDown, letters }) => {
   const handleClick = (key: string) => {
-    onKeyPress(key);
+    onKeyDown(key);
   };
 
   return (
     <div className='keyboard'>
-      {KEYS.map((row, i) => (
+      {letters.map((row, i) => (
         <div key={i}>
           {row.map((key) => (
-            <button key={key} onClick={() => handleClick(key)}>
+            <button
+              key={key}
+              onClick={() => handleClick(key)}
+              className={`test`}
+            >
               {key === 'Backspace' ? '⌫' : key}
             </button>
           ))}
