@@ -49,8 +49,8 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className='min-h-screen bg-black text-white flex flex-col items-center justify-center p-4'>
-      <h1 className='text-3xl font-bold mb-4'>Wordlotl</h1>
+    <div>
+      <h1>Wordlotl</h1>
       <h2>LEVEL {level + 1}</h2>
       <Grid
         guesses={guesses}
@@ -60,16 +60,11 @@ const App: React.FC = () => {
       />
       <Keyboard onKeyPress={handleKey} />
       {isGameOver && (
-        <div className='mt-6 text-center'>
-          <p className='text-xl'>
+        <div>
+          <p>
             {currentGuess === targetWord ? '✅ LEVEL COMPLETE' : '💀 GAME OVER'}
           </p>
-          <button
-            onClick={() => setLevel(0)}
-            className='mt-4 px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-300'
-          >
-            Restart
-          </button>
+          <button onClick={() => setLevel(0)}>Restart</button>
         </div>
       )}
     </div>

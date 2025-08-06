@@ -16,15 +16,11 @@ const Keyboard: React.FC<keyboardProps> = ({ onKeyPress }) => {
   };
 
   return (
-    <div className='mt-6 space-y-2'>
+    <div>
       {KEYS.map((row, i) => (
-        <div key={i} className='flex justify-center gap-1'>
+        <div key={i}>
           {row.map((key) => (
-            <button
-              key={key}
-              onClick={() => handleClick(key)}
-              className='bg-gray-800 text-white px-3 py-2 rounded hover:bg-gray-700 text-sm w-10'
-            >
+            <button key={key} onClick={() => handleClick(key)}>
               {key === 'Backspace' ? '⌫' : key}
             </button>
           ))}
