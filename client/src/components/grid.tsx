@@ -22,24 +22,23 @@ const Grid: React.FC<GridProps> = ({
   const safeGuess = guesses || [];
   const rows = [];
 
+  console.log('🎯 target word:', targetWord);
+
   // Show guesses already made
   safeGuess.forEach((guess, rowIndex) => {
     const letters = guess.split('');
     rows.push(
-      <div key={`row-${rowIndex}`} className='flex gap-1 justify-center mb-1'>
+      <div key={`row-${rowIndex}`} className='row'>
         {letters.map((letter, i) => {
           const status = getLetterStatus(letter, i, targetWord);
-          let bgColor =
+          const bgColor =
             status === 'correct'
-              ? 'bg-green-500'
+              ? 'correct'
               : status === 'present'
-              ? 'bg-yellow-500'
-              : 'bg-gray-700';
+              ? 'present'
+              : 'attempted';
           return (
-            <div
-              key={i}
-              className={`w-10 h-10 flex items-center justify-center font-bold text-lg text-white ${bgColor} rounded`}
-            >
+            <div key={i} className={`tile ${bgColor}`}>
               {letter}
             </div>
           );
@@ -56,12 +55,9 @@ const Grid: React.FC<GridProps> = ({
   ) {
     const letters = currentGuess.split('');
     rows.push(
-      <div key='current' className='flex gap-1 justify-center mb-1'>
+      <div key='current' className='row'>
         {Array.from({ length: wordLength }).map((_, i) => (
-          <div
-            key={i}
-            className='w-10 h-10 flex items-center justify-center font-bold text-lg text-white border border-gray-500 rounded'
-          >
+          <div key={i} className='tile'>
             {letters[i] || ''}
           </div>
         ))}
@@ -77,12 +73,9 @@ const Grid: React.FC<GridProps> = ({
 
   for (let i = 0; i < remainingRows; i++) {
     rows.push(
-      <div key={`empty-${i}`} className='flex gap-1 justify-center mb-1'>
+      <div key={`empty-${i}`} className='row'>
         {Array.from({ length: wordLength }).map((_, j) => (
-          <div
-            key={j}
-            className='w-10 h-10 border border-gray-500 rounded'
-          ></div>
+          <div key={j} className='tile'></div>
         ))}
       </div>
     );

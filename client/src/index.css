@@ -54,6 +54,46 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.tile {
+  height: 3em;
+  width: 3em;
+  border: 2px solid #cdcdcd;
+  line-height: 3em;
+  font-size: 1em;
+  font-family: inherit;
+  font-weight: 700;
+}
+
+.correct {
+  background-color: #94b594;
+}
+
+.present {
+  background-color: #dadda2;
+}
+
+.attempted {
+  background-color: #dedede;
+}
+
+.keyboard {
+  margin-top: 25px;
+}
+
+.keyboard > div {
+  gap: 4px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -63,6 +103,6 @@ button:focus-visible {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #f2f2f2;
   }
 }
