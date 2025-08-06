@@ -100,7 +100,7 @@ const App: React.FC = () => {
   useEffect(() => {
     // const wordList = wordsByLength[wordLength];
     const randomWord =
-      wordsByLength[Math.floor(Math.random() * wordsByLength.length)];
+      wordsByLength[level][Math.floor(Math.random() * wordsByLength.length)];
 
     setTargetWord(randomWord.toLowerCase());
     setGuesses([]);
