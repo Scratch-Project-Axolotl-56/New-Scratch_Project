@@ -14,14 +14,12 @@ const App: React.FC = () => {
   const [isGameOver, setIsGameOver] = useState(false);
 
   const wordLength = level + 3;
-  // console.log('target word', wordsByLength);
-  // test
+
   useEffect(() => {
     // const wordList = wordsByLength[wordLength];
-
     const randomWord =
       wordsByLength[Math.floor(Math.random() * wordsByLength.length)];
-    console.log('target word', randomWord);
+
     setTargetWord(randomWord.toLowerCase());
     setGuesses([]);
     setCurrentGuess('');

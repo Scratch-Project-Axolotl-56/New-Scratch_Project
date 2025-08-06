@@ -22,7 +22,7 @@ const Grid: React.FC<GridProps> = ({
   const safeGuess = guesses || [];
   const rows = [];
 
-  // console.log('target word:', targetWord);
+  console.log('🎯 target word:', targetWord);
 
   // Show guesses already made
   safeGuess.forEach((guess, rowIndex) => {
