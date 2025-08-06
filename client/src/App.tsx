@@ -1,7 +1,6 @@
 // This is all your dependencies to import in
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Game from '../src/components/game';
-import Grid from '../src/components/grid';
 import './App.css';
 
 function App() {
@@ -14,7 +13,7 @@ function App() {
             path='/'
             element={
               <>
-                <Game /> <Grid />
+                <Game />
               </>
             }
           />
