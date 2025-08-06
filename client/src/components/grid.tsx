@@ -26,7 +26,7 @@ const Grid: React.FC<GridProps> = ({
   safeGuess.forEach((guess, rowIndex) => {
     const letters = guess.split('');
     rows.push(
-      <div key={`row-${rowIndex}`} className='flex gap-1 justify-center mb-1'>
+      <div key={`row-${rowIndex}`}>
         {letters.map((letter, i) => {
           const status = getLetterStatus(letter, i, targetWord);
           const bgColor =
@@ -36,10 +36,7 @@ const Grid: React.FC<GridProps> = ({
               ? 'bg-yellow-500'
               : 'bg-gray-700';
           return (
-            <div
-              key={i}
-              className={`w-10 h-10 flex items-center justify-center font-bold text-lg text-white ${bgColor} rounded`}
-            >
+            <div key={i} className={`${bgColor}`}>
               {letter}
             </div>
           );
@@ -56,14 +53,9 @@ const Grid: React.FC<GridProps> = ({
   ) {
     const letters = currentGuess.split('');
     rows.push(
-      <div key='current' className='flex gap-1 justify-center mb-1'>
+      <div key='current'>
         {Array.from({ length: wordLength }).map((_, i) => (
-          <div
-            key={i}
-            className='w-10 h-10 flex items-center justify-center font-bold text-lg text-white border border-gray-500 rounded'
-          >
-            {letters[i] || ''}
-          </div>
+          <div key={i}>{letters[i] || ''}</div>
         ))}
       </div>
     );
@@ -77,12 +69,9 @@ const Grid: React.FC<GridProps> = ({
 
   for (let i = 0; i < remainingRows; i++) {
     rows.push(
-      <div key={`empty-${i}`} className='flex gap-1 justify-center mb-1'>
+      <div key={`empty-${i}`}>
         {Array.from({ length: wordLength }).map((_, j) => (
-          <div
-            key={j}
-            className='w-10 h-10 border border-gray-500 rounded'
-          ></div>
+          <div key={j}></div>
         ))}
       </div>
     );
