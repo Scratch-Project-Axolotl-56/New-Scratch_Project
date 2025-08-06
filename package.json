@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && npm run dev",
-    "server": "cd server && nodemon --exec node --loader ts-node/esm server.ts",
+    "server": "cd server && node --watch server.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
