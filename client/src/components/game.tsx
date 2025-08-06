@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import wordsByLength from '../../words.json'; // Adjust the path as necessary
-// Assuming you have a JSON file with words categorized by length
+import React, { useState, useEffect, useCallback } from 'react';
+import wordsByLength from '../../words.json';
 import Grid from './grid';
 import Keyboard from './keyboard';
 
@@ -20,21 +19,83 @@ const App: React.FC = () => {
   ];
 
   const wordLength = level + 3;
-  console.log('guessed letters', guessedLetters);
+
   console.log('currentGuess', currentGuess);
+
+  const handleAlphabetical = (key: string) => {
+    setCurrentGuess((currentGuess) => {
+      const currentWordArray = currentGuess.split('');
+      currentWordArray.push(key);
+      const newWord = currentWordArray.join('');
+
+      return newWord;
+    });
+    setGuessedLetters((prevLetters) => [...prevLetters, key]);
+  };
+
+  const handleKeyPress = useCallback(
+    (key: string) => {
+      if (!isGameOver) {
+        if (key === 'Enter') {
+          if (currentGuess.length === wordLength) {
+            setGuesses([...guesses, currentGuess]);
+            if (currentGuess.toLowerCase() === targetWord) {
+              if (level < MAX_LEVEL) {
+                setTimeout(() => setLevel(level + 1), 1000);
+              } else {
+                setIsGameOver(true);
+              }
+            } else if (guesses.length >= 5 + level) {
+              setIsGameOver(true);
+            }
+
+            setCurrentGuess('');
+          } else {
+            console.log('word length too short');
+          }
+        } else if (key === 'Backspace') {
+          if (currentGuess.length === 0) {
+            return;
+          }
+          setCurrentGuess(currentGuess.slice(0, -1));
+          setGuessedLetters([
+            ...guessedLetters.slice(0, guessedLetters.length - 1),
+          ]);
+        } else if (/^[a-zA-Z]$/.test(key) && currentGuess.length < wordLength) {
+          handleAlphabetical(key.toUpperCase());
+        } else {
+          // handling any other keys
+          return;
+        }
+      }
+      return;
+    },
+    [
+      currentGuess,
+      guesses,
+      level,
+      targetWord,
+      isGameOver,
+      wordLength,
+      guessedLetters,
+    ]
+  );
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      console.log('Key pressed:', e);
-      //restrict pressing more keys than length of target word
+      //To-Do: restrict pressing more keys than length of target word
       handleKeyPress(e.key);
     };
     document.addEventListener('keydown', handleKeyDown);
 
+    if (isGameOver) {
+      document.removeEventListener('keydown', handleKeyDown);
+    }
+
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [isGameOver, handleKeyPress]);
 
   useEffect(() => {
     // const wordList = wordsByLength[wordLength];
@@ -46,65 +107,6 @@ const App: React.FC = () => {
     setCurrentGuess('');
     setIsGameOver(false);
   }, [level, wordLength]);
-
-  const handleKeyPress = (key: string) => {
-    console.log('key', key);
-    if (!isGameOver) {
-      if (key === 'Enter') {
-        handleEnter();
-      } else if (key === 'Backspace') {
-        handleBackspace();
-      } else if (/^[a-zA-Z]$/.test(key) && currentGuess.length < wordLength) {
-        handleAlphabetical(key);
-      } else {
-        //any other keys
-        return;
-      }
-    }
-    return;
-  };
-
-  const handleAlphabetical = (key: string) => {
-    console.log('in handle alphabetical');
-    // setCurrentGuess(currentGuess + key.toUpperCase());
-
-    setCurrentGuess((currentGuess) => {
-      const currentWordArray = currentGuess.split('');
-      console.log('currentWordArray', currentWordArray);
-      currentWordArray.push(key.toUpperCase());
-
-      const newWord = currentWordArray.join('');
-      console.log('newword', newWord, newWord.length);
-      return newWord;
-    });
-    setGuessedLetters((prevLetters) => [...prevLetters, key]);
-  };
-
-  const handleEnter = () => {
-    console.log(currentGuess, currentGuess.length, wordLength);
-    if (currentGuess.length === wordLength) {
-      setGuesses([...guesses, currentGuess]);
-      if (currentGuess.toLowerCase() === targetWord) {
-        if (level < MAX_LEVEL) {
-          setTimeout(() => setLevel(level + 1), 1000);
-        } else {
-          setIsGameOver(true);
-        }
-      } else if (guesses.length >= 5 + level) {
-        setIsGameOver(true);
-      }
-      setCurrentGuess('');
-    } else {
-      console.log('word length too short');
-    }
-  };
-
-  const handleBackspace = () => {
-    if (currentGuess.length === 0) {
-      return;
-    }
-    setCurrentGuess(currentGuess.slice(0, -1));
-  };
 
   return (
     <div>
