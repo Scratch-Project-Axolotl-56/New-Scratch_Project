@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import wordsByLength from '../../words.json'; // Adjust the path as necessary
-// Assuming you have a JSON file with words categorized by length
+import wordsByLength from '../../words.json'; 
 import Grid from './grid';
 import Keyboard from './keyboard';
 
@@ -18,7 +17,7 @@ const App: React.FC = () => {
   useEffect(() => {
     // const wordList = wordsByLength[wordLength];
     const randomWord =
-      wordsByLength[Math.floor(Math.random() * wordsByLength.length)];
+      wordsByLength[level][Math.floor(Math.random() * wordsByLength.length)];
 
     setTargetWord(randomWord.toLowerCase());
     setGuesses([]);
