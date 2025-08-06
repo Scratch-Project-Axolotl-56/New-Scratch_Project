@@ -54,6 +54,35 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.tile {
+  height: 3em;
+  width: 3em;
+  border: 2px solid #cdcdcd;
+  line-height: 3em;
+  font-size: 1em;
+  font-family: inherit;
+  font-weight: 500;
+}
+
+.correct {
+  background-color: #94b594;
+}
+
+.present {
+  background-color: #dadda2;
+}
+
+.attempted {
+  background-color: #dedede;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

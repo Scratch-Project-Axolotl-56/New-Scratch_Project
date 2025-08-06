@@ -22,21 +22,23 @@ const Grid: React.FC<GridProps> = ({
   const safeGuess = guesses || [];
   const rows = [];
 
+  // console.log('target word:', targetWord);
+
   // Show guesses already made
   safeGuess.forEach((guess, rowIndex) => {
     const letters = guess.split('');
     rows.push(
-      <div key={`row-${rowIndex}`}>
+      <div key={`row-${rowIndex}`} className='row'>
         {letters.map((letter, i) => {
           const status = getLetterStatus(letter, i, targetWord);
           const bgColor =
             status === 'correct'
-              ? 'bg-green-500'
+              ? 'correct'
               : status === 'present'
-              ? 'bg-yellow-500'
-              : 'bg-gray-700';
+              ? 'present'
+              : 'attempted';
           return (
-            <div key={i} className={`${bgColor}`}>
+            <div key={i} className={`tile ${bgColor}`}>
               {letter}
             </div>
           );
@@ -53,9 +55,11 @@ const Grid: React.FC<GridProps> = ({
   ) {
     const letters = currentGuess.split('');
     rows.push(
-      <div key='current'>
+      <div key='current' className='row'>
         {Array.from({ length: wordLength }).map((_, i) => (
-          <div key={i}>{letters[i] || ''}</div>
+          <div key={i} className='tile'>
+            {letters[i] || ''}
+          </div>
         ))}
       </div>
     );
@@ -69,9 +73,9 @@ const Grid: React.FC<GridProps> = ({
 
   for (let i = 0; i < remainingRows; i++) {
     rows.push(
-      <div key={`empty-${i}`}>
+      <div key={`empty-${i}`} className='row'>
         {Array.from({ length: wordLength }).map((_, j) => (
-          <div key={j}></div>
+          <div key={j} className='tile'></div>
         ))}
       </div>
     );
