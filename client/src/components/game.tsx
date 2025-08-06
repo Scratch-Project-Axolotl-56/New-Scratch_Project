@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import wordsByLength from '../../words.json';
 import Grid from './grid';
 import Keyboard from './keyboard';
 import { supabase } from '../../supabaseClient';
@@ -25,6 +24,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const fetchWord = async () => {
+      console.log(wordLength);
       const { data, error } = await supabase
         .from('first_level')
         .select('words')
@@ -136,9 +136,6 @@ const App: React.FC = () => {
 
   const restartHelper = (lvl: number) => {
     setLevel(lvl);
-    const list = wordsByLength[lvl];
-    const word = list[Math.floor(Math.random() * list.length)].toLowerCase();
-    setTargetWord(word);
     setGuesses([]);
     setCurrentGuess('');
     setIsGameOver(false);
