@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import wordsByLength from '../../words.json'; // Adjust the path as necessary
 // Assuming you have a JSON file with words categorized by length
 import Grid from './grid';
 import Keyboard from './keyboard';
+import { supabase } from '../../supabaseClient';
 
 const MAX_LEVEL = 11; // 3 to 13 letters (index 0 = 3-letter)
 
@@ -16,11 +16,30 @@ const App: React.FC = () => {
   const wordLength = level + 3;
 
   useEffect(() => {
-    // const wordList = wordsByLength[wordLength];
-    const randomWord =
-      wordsByLength[Math.floor(Math.random() * wordsByLength.length)];
+    const fetchWord = async () => {
+      const { data, error } = await supabase
+        .from('first_level')
+        .select('words')
+        .eq('length', wordLength);
 
-    setTargetWord(randomWord.toLowerCase());
+      console.log('✅ Data:', data);
+      console.log('❌ Error:', error);
+
+      if (error) {
+        console.error('❌ Supabase fetch error:', error);
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        console.error('⚠️ Supabase returned empty data');
+        return;
+      }
+
+      const randomWord = data[Math.floor(Math.random() * data.length)].words;
+      setTargetWord(randomWord.toLowerCase());
+    };
+
+    fetchWord();
     setGuesses([]);
     setCurrentGuess('');
     setIsGameOver(false);
