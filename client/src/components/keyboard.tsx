@@ -16,7 +16,7 @@ const Keyboard: React.FC<keyboardProps> = ({ onKeyPress }) => {
   };
 
   return (
-    <div>
+    <div className='keyboard'>
       {KEYS.map((row, i) => (
         <div key={i}>
           {row.map((key) => (
