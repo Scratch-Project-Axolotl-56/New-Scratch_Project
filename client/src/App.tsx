@@ -1,8 +1,7 @@
 // This is all your dependencies to import in
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Game from '../src/components/game';
 import Grid from '../src/components/grid';
-import Keyboard from './components/keyboard';
 import './App.css';
 
 function App() {

@@ -22,7 +22,7 @@ const App: React.FC = () => {
     setGuesses([]);
     setCurrentGuess('');
     setIsGameOver(false);
-  }, [level]);
+  }, [level, wordLength]);
 
   const handleKey = (key: string) => {
     if (isGameOver) return;
@@ -50,7 +50,8 @@ const App: React.FC = () => {
 
   return (
     <div className='min-h-screen bg-black text-white flex flex-col items-center justify-center p-4'>
-      <h1 className='text-3xl font-bold mb-4'>Wordlotl - LEVEL {level + 1}</h1>
+      <h1 className='text-3xl font-bold mb-4'>Wordlotl</h1>
+      <h2>LEVEL {level + 1}</h2>
       <Grid
         guesses={guesses}
         currentGuess={currentGuess}
