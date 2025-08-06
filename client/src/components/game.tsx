@@ -4,6 +4,7 @@ import Grid from './grid';
 import Keyboard from './keyboard';
 
 const MAX_LEVEL = 11; // 3 to 13 letters (index 0 = 3-letter)
+const MAX_ATTEMPTS = 6;
 
 const App: React.FC = () => {
   const [level, setLevel] = useState(0); // 0 = 3-letter, 10 = 13-letter
@@ -38,15 +39,18 @@ const App: React.FC = () => {
       if (!isGameOver) {
         if (key === 'Enter') {
           if (currentGuess.length === wordLength) {
-            setGuesses([...guesses, currentGuess]);
+            const newGuesses = [...guesses, currentGuess];
+            setGuesses(newGuesses);
             if (currentGuess.toLowerCase() === targetWord) {
               if (level < MAX_LEVEL) {
                 setTimeout(() => setLevel(level + 1), 1000);
               } else {
                 setIsGameOver(true);
+                alert('🚨 GAME OVER');
               }
-            } else if (guesses.length >= 5 + level) {
+            } else if (newGuesses.length >= MAX_ATTEMPTS) {
               setIsGameOver(true);
+              alert('🚨 GAME OVER');
             }
 
             setCurrentGuess('');
@@ -97,16 +101,19 @@ const App: React.FC = () => {
     };
   }, [isGameOver, handleKeyPress]);
 
-  useEffect(() => {
-    // const wordList = wordsByLength[wordLength];
-    const randomWord =
-      wordsByLength[level][Math.floor(Math.random() * wordsByLength.length)];
-
-    setTargetWord(randomWord.toLowerCase());
+  const restartHelper = (lvl: number) => {
+    setLevel(lvl);
+    const list = wordsByLength[lvl];
+    const word = list[Math.floor(Math.random() * list.length)].toLowerCase();
+    setTargetWord(word);
     setGuesses([]);
     setCurrentGuess('');
     setIsGameOver(false);
-  }, [level, wordLength]);
+  };
+
+  useEffect(() => {
+    restartHelper(level);
+  }, [level]);
 
   return (
     <div>
@@ -117,14 +124,17 @@ const App: React.FC = () => {
         currentGuess={currentGuess}
         wordLength={wordLength}
         targetWord={targetWord}
+        isGameOver={isGameOver}
       />
       <Keyboard onKeyDown={handleKeyPress} letters={letters} />
       {isGameOver && (
         <div>
           <p>
-            {currentGuess === targetWord ? '✅ LEVEL COMPLETE' : '🚨 GAME OVER'}
+            {guesses[guesses.length - 1]?.toLowerCase() === targetWord
+              ? '✅ LEVEL COMPLETE'
+              : '🚨 GAME OVER'}
           </p>
-          <button onClick={() => setLevel(0)}>Restart</button>
+          <button onClick={() => restartHelper(level)}>Restart</button>
         </div>
       )}
     </div>
