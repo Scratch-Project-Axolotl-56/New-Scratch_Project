@@ -69,13 +69,13 @@ const Grid: React.FC<GridProps> = ({
 
   while (rows.length < totalRows) {
     rows.push(
-      <div key={`empty-${rows.length}`} className="row">
+      <div key={`empty-${rows.length}`} className='row empty'>
         {Array.from({ length: wordLength }).map((_, j) => (
-          <div key={j} className="tile"></div>
+          <div key={j} className='tile'></div>
         ))}
       </div>
     );
-}
+  }
   return <div>{rows}</div>;
 };
 
