@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import wordsByLength from '../../words.json';
 import Grid from './grid';
 import Keyboard from './keyboard';
+import { supabase } from '../../supabaseClient';
 
 const MAX_LEVEL = 11; // 3 to 13 letters (index 0 = 3-letter)
+const MAX_ATTEMPTS = 6;
 
 const App: React.FC = () => {
   const [level, setLevel] = useState(0); // 0 = 3-letter, 10 = 13-letter
@@ -15,11 +16,46 @@ const App: React.FC = () => {
 
   const wordLength = level + 3;
 
+
+  useEffect(() => {
+    const fetchWord = async () => {
+      console.log(wordLength);
+      const { data, error } = await supabase
+        .from('first_level')
+        .select('words')
+        .eq('length', wordLength);
+
+      console.log('✅ Data:', data);
+      console.log('❌ Error:', error);
+
+      if (error) {
+        console.error('❌ Supabase fetch error:', error);
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        console.error('⚠️ Supabase returned empty data');
+        return;
+      }
+
+      const randomWord = data[Math.floor(Math.random() * data.length)].words;
+      setTargetWord(randomWord.toLowerCase());
+    };
+
+    fetchWord();
+    setGuesses([]);
+    setCurrentGuess('');
+    setIsGameOver(false);
+  }, [level, wordLength]);
+
+  console.log('currentGuess', currentGuess);
+
   const handleAlphabetical = (key: string) => {
     setCurrentGuess((currentGuess) => {
       const currentWordArray = currentGuess.split('');
       currentWordArray.push(key);
       const newWord = currentWordArray.join('');
+
 
       return newWord;
     });
@@ -31,17 +67,19 @@ const App: React.FC = () => {
       if (!isGameOver) {
         if (key === 'Enter') {
           if (currentGuess.length === wordLength) {
-            setGuesses([...guesses, currentGuess]);
+            const newGuesses = [...guesses, currentGuess];
+            setGuesses(newGuesses);
             if (currentGuess.toLowerCase() === targetWord) {
               if (level < MAX_LEVEL) {
                 setTimeout(() => setLevel(level + 1), 1000);
               } else {
                 setIsGameOver(true);
+                alert('🚨 GAME OVER');
               }
-            } else if (guesses.length >= 5 + level) {
+            } else if (newGuesses.length >= MAX_ATTEMPTS) {
               setIsGameOver(true);
+              alert('🚨 GAME OVER');
             }
-
             setCurrentGuess('');
           } else {
             console.log('word length too short');
@@ -90,16 +128,16 @@ const App: React.FC = () => {
     };
   }, [isGameOver, handleKeyPress]);
 
-  useEffect(() => {
-    // const wordList = wordsByLength[wordLength];
-    const randomWord =
-      wordsByLength[Math.floor(Math.random() * wordsByLength.length)];
-
-    setTargetWord(randomWord.toLowerCase());
+  const restartHelper = (lvl: number) => {
+    setLevel(lvl);
     setGuesses([]);
     setCurrentGuess('');
     setIsGameOver(false);
-  }, [level, wordLength]);
+  };
+
+  useEffect(() => {
+    restartHelper(level);
+  }, [level]);
 
   return (
     <div>
@@ -110,6 +148,7 @@ const App: React.FC = () => {
         currentGuess={currentGuess}
         wordLength={wordLength}
         targetWord={targetWord}
+        isGameOver={isGameOver}
       />
       <Keyboard
         onKeyDown={handleKeyPress}
@@ -118,8 +157,12 @@ const App: React.FC = () => {
       />
       {isGameOver && (
         <div>
-          <p>{currentGuess === targetWord ? 'LEVEL COMPLETE' : 'GAME OVER'}</p>
-          <button onClick={() => setLevel(0)}>Restart</button>
+          <p>
+            {guesses[guesses.length - 1]?.toLowerCase() === targetWord
+              ? '✅ LEVEL COMPLETE'
+              : '🚨 GAME OVER'}
+          </p>
+          <button onClick={() => restartHelper(level)}>Restart</button>
         </div>
       )}
     </div>

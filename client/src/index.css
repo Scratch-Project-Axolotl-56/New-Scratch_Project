@@ -94,6 +94,46 @@ button:focus-visible {
   margin-bottom: 4px;
 }
 
+.row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.tile {
+  height: 3em;
+  width: 3em;
+  border: 2px solid #cdcdcd;
+  line-height: 3em;
+  font-size: 1em;
+  font-family: inherit;
+  font-weight: 700;
+}
+
+.correct {
+  background-color: #6aaa64;
+}
+
+.present {
+  background-color: #c9b458;
+}
+
+.attempted {
+  background-color: #93999c;
+}
+
+.keyboard {
+  margin-top: 25px;
+}
+
+.keyboard > div {
+  gap: 4px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Scratch-Project-Axolotl-56/New-Scratch_Project#readme",
   "dependencies": {
+    "@supabase/supabase-js": "^2.53.0",
     "concurrently": "^9.2.0",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",

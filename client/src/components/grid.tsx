@@ -5,6 +5,7 @@ type GridProps = {
   currentGuess: string;
   wordLength: number;
   targetWord: string;
+  isGameOver: boolean;
 };
 
 const totalRows = 6;
@@ -20,6 +21,7 @@ const Grid: React.FC<GridProps> = ({
   currentGuess,
   wordLength,
   targetWord,
+  isGameOver,
 }) => {
   const safeGuess = guesses || [];
   const rows = [];
@@ -51,9 +53,10 @@ const Grid: React.FC<GridProps> = ({
 
   // Show current guess (in progress)
   if (
-    typeof currentGuess === 'string' &&
+    !isGameOver &&
+    rows.length < totalRows &&
     currentGuess.length <= wordLength &&
-    !safeGuess.includes(currentGuess)
+    !guesses.includes(currentGuess)
   ) {
     const letters = currentGuess.split('');
     rows.push(
@@ -69,7 +72,7 @@ const Grid: React.FC<GridProps> = ({
 
   while (rows.length < totalRows) {
     rows.push(
-      <div key={`empty-${rows.length}`} className='row empty'>
+      <div key={`empty-${rows.length}`} className='row'>
         {Array.from({ length: wordLength }).map((_, j) => (
           <div key={j} className='tile'></div>
         ))}
