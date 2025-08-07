@@ -24,7 +24,6 @@ const App: React.FC = () => {
         .eq('length', wordLength);
 
       console.log('✅ Data:', data);
-      console.log('❌ Error:', error);
 
       if (error) {
         console.error('❌ Supabase fetch error:', error);
