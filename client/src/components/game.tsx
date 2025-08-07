@@ -13,11 +13,6 @@ const App: React.FC = () => {
   const [currentGuess, setCurrentGuess] = useState('');
   const [isGameOver, setIsGameOver] = useState(false);
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
-  const letters = [
-    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
-    ['Enter', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Backspace'],
-  ];
 
   const wordLength = level + 3;
 
@@ -85,7 +80,6 @@ const App: React.FC = () => {
               setIsGameOver(true);
               alert('🚨 GAME OVER');
             }
-
             setCurrentGuess('');
           } else {
             console.log('word length too short');
@@ -156,7 +150,11 @@ const App: React.FC = () => {
         targetWord={targetWord}
         isGameOver={isGameOver}
       />
-      <Keyboard onKeyDown={handleKeyPress} letters={letters} />
+      <Keyboard
+        onKeyDown={handleKeyPress}
+        guesses={guesses}
+        targetWord={targetWord}
+      />
       {isGameOver && (
         <div>
           <p>

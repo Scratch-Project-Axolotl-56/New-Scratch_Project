@@ -47,11 +47,51 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #41e2ba;
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 4px auto #254441;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.tile {
+  height: 3em;
+  width: 3em;
+  border: 2px solid #c4c0bf;
+  line-height: 3em;
+  font-size: 1em;
+  font-family: inherit;
+  font-weight: 700;
+}
+
+.correct {
+  background-color: #41e2ba;
+}
+
+.present {
+  background-color: #ff9f1c;
+}
+
+.attempted {
+  background-color: #93999c;
+}
+
+.keyboard {
+  margin-top: 25px;
+}
+
+.keyboard > div {
+  gap: 4px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4px;
 }
 
 .row {
