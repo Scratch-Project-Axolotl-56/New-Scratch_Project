@@ -33,6 +33,7 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  text-shadow: 1px 1px 1px #cac9c9;
 }
 
 button {
@@ -109,6 +110,12 @@ button:focus-visible {
   font-size: 1em;
   font-family: inherit;
   font-weight: 700;
+}
+
+.gridContainer {
+  background: url('../public/image-top-right-removebg.png') top right no-repeat,
+    url('../public/image-bottom-left-removebg.png') bottom left no-repeat;
+  background-size: 100px 115px, 110px 100px;
 }
 
 @media (prefers-color-scheme: light) {

@@ -79,7 +79,7 @@ const Grid: React.FC<GridProps> = ({
       </div>
     );
   }
-  return <div>{rows}</div>;
+  return <div className='gridContainer'>{rows}</div>;
 };
 
 export default Grid;
