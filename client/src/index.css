@@ -47,11 +47,11 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #41e2ba;
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 4px auto #254441;
 }
 
 .row {
@@ -64,7 +64,7 @@ button:focus-visible {
 .tile {
   height: 3em;
   width: 3em;
-  border: 2px solid #cdcdcd;
+  border: 2px solid #c4c0bf;
   line-height: 3em;
   font-size: 1em;
   font-family: inherit;
@@ -72,11 +72,11 @@ button:focus-visible {
 }
 
 .correct {
-  background-color: #6aaa64;
+  background-color: #41e2ba;
 }
 
 .present {
-  background-color: #c9b458;
+  background-color: #ff9f1c;
 }
 
 .attempted {
